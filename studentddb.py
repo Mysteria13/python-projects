@@ -37,5 +37,5 @@ if menu == "input scores":
           grade ='F' 
      if st.button ("Save student scores"):
           st.write (name,"your total score is",Total,"average is",ave,"grade is", grade, "Good job!!!")
-          st.write ("scoresdict")
           scoresdict = {"Name:",[name],"Math:",[math],"Science",[Science],"Art",[Art],"History",[History],"Geography",[Geo]}
+          st.write ("scoresdict")
