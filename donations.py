@@ -4,7 +4,7 @@ import pandas as pd
 readcsv = pd.read_csv('donations.csv')
 menu = st.sidebar.selectbox("Choose an option",['Create Donations','View Donations','Donate'])
 if menu == 'Create Donations':
-    st.subheader  (":blue [Create Donation] ") 
+    st.subheader  (":blue [Create Donation]") 
     st.divider()
     col1,col2 = st.columns(2)
     with col1:
