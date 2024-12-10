@@ -1,12 +1,20 @@
 import streamlit as st 
 import pandas as pd
 st.title(' Student database App ')
-readcsv = pd.read_csv("scores.csv")
+
 menu = st.sidebar.selectbox("Choose an option",["input scores","scores database"])
+
+try: #attempt to do what is below 
+   readcsv = pd.read_csv('scores.csv')
+except:#if there is an error in the above attempt then do this
+     readcsv = pd.DataFrame()#create an empty dataframe for me
+
+     #csv : comma seperated values
+#menu page to only show the table 
 if menu == "scores database":
-     st.table(readcsv)
-if menu == "input scores":
-    
+    st.table(readcsv)
+     
+if menu == "input scores": 
      name = st.text_input('Please enter Student name')
      col1, col2, = st.columns(2)
      with col1:
@@ -37,5 +45,10 @@ if menu == "input scores":
           grade ='F' 
      if st.button ("Save student scores"):
           st.write (name,"your total score is",Total,"average is",ave,"grade is", grade, "Good job!!!")
-          scoresdict = {"Name":[name],"Math":[math],"Science":[Science],"Art":[Art],"History":[History],"Geography":[Geo]}
+          scoresdict = {"Name":[name],"Math":[math],"Science":[Science],"Art":[Art],"History":[History],"Geography":[Geo],"Average":[ave],"Grade":[grade]}
           st.write (scoresdict)
+          student_table = pd.DataFrame(scoresdict)
+          st.table(student_table)
+          tablesjoin = pd.concat([readcsv,student_table],ignore_index=True)
+          tablesjoin.to_csv('scores.csv',index=False)
+          st.success('Student Data Saved')

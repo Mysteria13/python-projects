@@ -7,9 +7,9 @@
 import streamlit as st
 import pandas as pd
 Money = 10000
-menu= st.sidebar.selectbox = ("Menu",['Transaction','About us'])
+menu= st.sidebar.selectbox("Menu",['Transaction','About us'])
 if menu == 'Transaction':
-    st.subheader =("Transaction")
+    st.subheader ("Transaction")
     pick = st.selectbox ("Do you want to ",['Deposit','Withdraw','View account balance'])
     if pick == 'Deposit':
         amount = st.selectbox ("Pick amount to deposit",['$50','$80','$100','$200','$500','$1000'],0)
