@@ -1,5 +1,6 @@
 import streamlit as st 
 import pandas as pd
+st.set_page_config(page_title='Student Databse',page_icon='👌')
 st.title(' Student database App ')
 
 menu = st.sidebar.selectbox("Choose an option",["input scores","scores database"])
@@ -44,7 +45,8 @@ if menu == "input scores":
      elif ave <= 30:
           grade ='F' 
      if st.button ("Save student scores"):
-          st.write (name,"your total score is",Total,"average is",ave,"grade is", grade, "Good job!!!")
+          if name and math and English and Science and Art and History and Geo:
+           st.write (name,"your total score is",Total,"average is",ave,"grade is", grade, "Good job!!!")
           scoresdict = {"Name":[name],"Math":[math],"Science":[Science],"Art":[Art],"History":[History],"Geography":[Geo],"Average":[ave],"Grade":[grade]}
           st.write (scoresdict)
           student_table = pd.DataFrame(scoresdict)
@@ -52,3 +54,5 @@ if menu == "input scores":
           tablesjoin = pd.concat([readcsv,student_table],ignore_index=True)
           tablesjoin.to_csv('scores.csv',index=False)
           st.success('Student Data Saved')
+     else:
+          st.error ('please fill in all the boxes')
