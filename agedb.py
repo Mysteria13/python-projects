@@ -7,8 +7,9 @@
 #PUBLISH THIS ONE AND SHARE THE LINK
 import streamlit as st
 import pandas as pd
-st.title = ("Age app")
+
 readcsv = pd.read_csv('age.csv')
+st.title = ("Age app")
 menu = st.sidebar.selectbox("Choose an option",["input info","Response"])
 if menu == "Response":
     st.table(readcsv)
