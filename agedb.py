@@ -33,5 +33,5 @@ if menu == 'input info':
           age_table=pd.DataFrame (agedict)
           st.table (age_table)
           tablesjoin = pd.concat([readcsv,age_table],ignore_index=True)
-          tablesjoin.to_csv (age.csv,index=False)
+          tablesjoin.to_csv('age.csv',index=False)
           st.success ('Info Sumbitted')
