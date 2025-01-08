@@ -18,7 +18,7 @@ if menu == "scores database/chart":
     subjects = ["Math","English","Science","Art","History","Geography"]
     subjectstable = readcsv[subjects].mean().reset_index()
 
-    barchart = px.bar(subjectstable,x='index',y=0) 
+    barchart = px.bar(subjectstable,x='index',y=0,labels={'index':'Subject','0':'Average'}) 
     st.plotly_chart(barchart)    
 if menu == "input scores": 
      name = st.text_input('Please enter Student name')
@@ -51,7 +51,7 @@ if menu == "input scores":
           grade ='F' 
      if st.button ("Save student scores"):
           if name and math and English and Science and Art and History and Geo:
-           st.write (name,"your total score is",Total,"average is",ave,"grade is", grade, "Good job!!!")
+           st.write (name,"your total score is",Total,"average is",ave,"grade is",grade, "Good job!!!")
           scoresdict = {"Name":[name],"Math":[math],"English":[English],"Science":[Science],"Art":[Art],"History":[History],"Geography":[Geo],"Average":[ave],"Grade":[grade]}
           st.write (scoresdict)
           student_table = pd.DataFrame(scoresdict)
