@@ -25,9 +25,14 @@ col1,col2 = st.columns(2)
 if menu == 'Results':
     st.table(readcsv)
     days = ['Present','Absent']
-    daystable = readcsv[days].mean().reset_index()
-    barchart = px.bar(daystable,x='index',y=0,labels={'index':'Days','0':'Amount'}) 
-    st.plotly_chart(barchart)    
+    chart = st.radio ('Pick an option',['Bar','Pie'])
+    if chart == 'Bar':
+        barchart = px.bar(readcsv,x= days,y='Student') 
+        st.plotly_chart(barchart)
+    if chart == 'Pie':
+        piechart = px.pie (readcsv, names= 'Student', values='Present' )
+        st.plotly_chart(piechart)
+    
     
 if menu == 'Info':
     with col1:
