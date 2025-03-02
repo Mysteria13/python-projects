@@ -1,11 +1,19 @@
 import streamlit as st
+import pandas as pd
+import plotly_express as px
 bill=0
 st.set_page_config(layout='wide')
 st.title('Book App made by Lisa')
 col1,col2,col3,col4= st.columns (4)
 with col1:
     Book_collections =st. selectbox ("Choose any Category",['Choose an option',"Children's Books","Teen's Books","Family's Books","Christian Books","Science Books"])
-
+name = st.text_input("Please Enter name")
+try:
+    readcsv=pd.read_csv ('Book.csv')
+except:
+    readcsv = pd.DataFrame()
+barchart = px.bar (readcsv,x='Name',y='Bill' )
+st.plotly_chart(barchart)
 if Book_collections == "Children's Books":
     st.subheader("Children's Books")
     child1, child2,child3 , child4 = st.columns(4)
@@ -107,3 +115,11 @@ if Book_collections == "Family's Books":
 
 if st.button ("check amount "):
     st.write('your final amount is',bill,'dollars')
+    bookdict = {'Name':[name],'Bill':[bill]}
+    st.write (bookdict)
+    book_table = pd.DataFrame(bookdict)
+    st.table (book_table)
+    tablesjoin = pd.concat ([readcsv,book_table],ignore_index=True)
+    tablesjoin.to_csv ('Book.csv',index=False)
+    st.success ('Customer Data Saved')
+    
