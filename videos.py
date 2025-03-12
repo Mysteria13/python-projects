@@ -8,6 +8,7 @@ try:
 except:
     videocsv = pd.DataFrame()
 
+#hi
 
 menu = st.sidebar.selectbox('Menu',['Video Categories','Video Ratings'])
 if menu == 'Video Ratings':
