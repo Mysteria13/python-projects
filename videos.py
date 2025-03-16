@@ -13,15 +13,15 @@ except:
 menu = st.sidebar.selectbox('Menu',['Video Categories','Video Ratings'])
 if menu == 'Video Ratings':
     st.subheader('View most watched videos')
-    st.table(videocsv)
+    # st.table(videocsv)
     melt_tables = videocsv.melt(var_name='Video title',value_name='Number of Plays')
-    st.table(melt_tables)
+    # st.table(melt_tables)
     chart = st.radio ('Pick an option',['Bar','Pie'])
     if chart == 'Bar':
-        barchart = px.bar(videocsv,x= 'Video title',y='Number of Plays') 
+        barchart = px.bar(melt_tables,x= 'Video title',y='Number of Plays') 
         st.plotly_chart(barchart)
     if chart == 'Pie':
-        piechart = px.pie (videocsv, names= 'Video title', values='Number of Plays' )
+        piechart = px.pie (melt_tables, names= 'Video title', values='Number of Plays' )
         st.plotly_chart(piechart)
     
     
