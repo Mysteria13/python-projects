@@ -1,5 +1,5 @@
 boolean,intger,intger,float,string
-compilation
+interpretation
 g,f,a,b,c
 syntax
 a,b,d,f,e
@@ -13,18 +13,9 @@ if temprature == 0.0:
 d
 b
 b,d
-a,c
-c
-a,b
-a,b
-d,a,c,b,e,f
-a
-d
-d
-c,a
-b
-a
-d
-d
-b,c
-a,b
+Exam B
+1.
+2.
+3.
+4.
+5

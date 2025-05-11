@@ -14,76 +14,106 @@
 #-parent contact
 #-Parent email
 #-address
+#remove home from the menu entirely
+#put a notification if username not found or password incorrect or button pressed with no details
+#all tables not needed to be shown
+#use the username provided in the registration to login
+
+
 import streamlit as st
 import pandas as pd
+
+# Load or initialize the CSV file
 try:
     readcsv = pd.read_csv('school.csv')
     st.write(readcsv)
-except:
+except FileNotFoundError:
     readcsv = pd.DataFrame()
     st.write(readcsv)
-menu = st.sidebar.selectbox('Menu', ['Home', 'Register', 'Login'])
-if menu == 'Home':
-    st.title('Welcome to School')
-    st.write('Please select a menu')
-elif menu == 'Register':
+
+# Sidebar menu
+menu = st.sidebar.selectbox('Menu', ['Register', 'Login'])
+
+if menu == 'Register':
     st.title('Register')
     st.subheader('Student Information')
-    profile_pic = st.file_uploader('Upload Profile Picture')
+
+    # Profile picture upload
+    profile_pic = st.file_uploader('Upload Profile Picture', type=["png", "jpg", "jpeg"])
     if profile_pic:
-        st.image(profile_pic, width = 300)
-    userid = User = st.text_input('Student ID')
-    if userid:
-        st.image(f'{userid}.png')
-        st.success('Profile picture uploaded successfully!')
-    
-    profile_pic = st.file_uploader("Upload a new profile picture", type=["png", "jpg", "jpeg"])
-    if st.button('Save Picture'):
-       if profile_pic:
-            picname = f'{userid}.png'
-            with open(picname, 'wb') as f:
-                f.write(profile_pic.getbuffer())
-            st.success("Profile picture updated successfully!")
-    col1,col2, = st.columns(2)
-    
-    with col1:
-        first_name = st.text_input('First Name')
-        gender = st.radio('Gender', ['Male', 'Female'], horizontal = True)
-        grade = st.selectbox('Grade', ['Grade 6','Grade 7', 'Grade 8', 'Grade 9', 'Grade 10', 'Grade 11', 'Grade 12'])
-        User =st.text_input('Please create Username')
-    with col2:
-        Lock = st.text_input('Please Create password ',type = 'password')
-        last_name = st.text_input('Last Name') 
-        DOB = st.date_input('DOB')
-        student_email = st.text_input('Student Email')
-    
+        st.image(profile_pic, width=300)
+
+    # Student information inputs
+    userid = st.text_input('Student ID')
+    first_name = st.text_input('First Name')
+    last_name = st.text_input('Last Name')
+    grade = st.selectbox('Grade', ['Grade 6', 'Grade 7', 'Grade 8', 'Grade 9', 'Grade 10', 'Grade 11', 'Grade 12'])
+    gender = st.radio('Gender', ['Male', 'Female'], horizontal=True)
+    dob = st.date_input('Date of Birth')
+    student_email = st.text_input('Student Email')
     address = st.text_input('Address')
+    username = st.text_input('Create Username')
+    password = st.text_input('Create Password', type='password')
+
+    # Parent information inputs
     st.subheader('Parent Information')
-    cl1,cl2= st.columns(2)
-    with cl1:
-        parent_contact = st.text_input('Parent Contact')
-        parent_email = st.text_input('Parent Email')
-    with cl2:
-        parent_name = st.text_input('Parent Name')
-        relation= st.selectbox('Relation', ['Father', 'Mother', 'Guardian'])
+    parent_name = st.text_input('Parent Name')
+    parent_contact = st.text_input('Parent Contact')
+    parent_email = st.text_input('Parent Email')
+    relation = st.selectbox('Relation', ['Father', 'Mother', 'Guardian'])
+
+    # Submit button
     if st.button('Submit'):
-        student_data = { 'First Name': [first_name], 'Last Name': [last_name], 'Grade': [grade] , 'Date of Birth':[DOB] ,'Gender':[gender] , 'Address': [address], 'Student Email': [student_email],'Parent Name': [parent_name], 'Parent Contact': [parent_contact], 'Parent Email': [parent_email], 'Relation': [relation],'Username':[User],'Password':[Lock]}
-        st.write(student_data)
-        student_table = pd.DataFrame(student_data )
-        st.table(student_table)
-        tablesjoin = pd.concat([readcsv, student_table], ignore_index=True)
-        tablesjoin.to_csv('school.csv', index=False)
-        st.success('Registration Successful')
-        st.balloons() 
+        if not all([userid, first_name, last_name, username, password]):
+            st.warning('Please fill in all required fields.')
+        else:
+            student_data = {
+                'Student ID': [userid],
+                'First Name': [first_name],
+                'Last Name': [last_name],
+                'Grade': [grade],
+                'Date of Birth': [dob],
+                'Gender': [gender],
+                'Address': [address],
+                'Student Email': [student_email],
+                'Parent Name': [parent_name],
+                'Parent Contact': [parent_contact],
+                'Parent Email': [parent_email],
+                'Relation': [relation],
+                'Username': [username],
+                'Password': [password]
+            }
+            student_table = pd.DataFrame(student_data)
+            updated_data = pd.concat([readcsv, student_table], ignore_index=True)
+            updated_data.to_csv('school.csv', index=False)
+            st.success('Registration Successful')
+            st.balloons()
+
 elif menu == 'Login':
     st.title('Login')
-    username = st.text_input('Username')
-    password = st.text_input('Password', type='password')
-    if st.button('Login'):
-        if username == username and password == password:
-            st.success('Login Successful')
+
+    # Login inputs
+    username = st.sidebar.text_input('Username')
+    password = st.sidebar.text_input('Password', type='password')
+
+    if st.sidebar.button('Login'):
+        if username == '' or password == '':
+            st.warning('Please enter both username and password.')
         else:
-            st.error('Invalid Username or Password')
-else:
-    st.write('404 Page Not Found')     
- 
+            user_data = readcsv[readcsv['Username'] == username]
+            if user_data.empty:
+                st.error('Username not found.')
+            elif user_data['Password'].iloc[0] != password:
+                st.error('Incorrect password.')
+            else:
+                st.success('Login Successful')
+                st.write(f"Welcome, {user_data['First Name'].iloc[0]} {user_data['Last Name'].iloc[0]}")
+                st.write(f"Grade: {user_data['Grade'].iloc[0]}")
+                st.write(f"Date of Birth: {user_data['Date of Birth'].iloc[0]}")
+                st.write(f"Gender: {user_data['Gender'].iloc[0]}")
+                st.write(f"Address: {user_data['Address'].iloc[0]}")
+                st.write(f"Student Email: {user_data['Student Email'].iloc[0]}")
+                st.write(f"Parent Name: {user_data['Parent Name'].iloc[0]}")
+                st.write(f"Parent Contact: {user_data['Parent Contact'].iloc[0]}")
+                st.write(f"Parent Email: {user_data['Parent Email'].iloc[0]}")
+                st.write(f"Relation: {user_data['Relation'].iloc[0]}")
