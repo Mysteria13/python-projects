@@ -15,6 +15,7 @@
 #-Parent email
 #-address
 #remove home from the menu entirely
+#put profile picture with the login info page
 #put a notification if username not found or password incorrect or button pressed with no details
 #all tables not needed to be shown
 #use the username provided in the registration to login
@@ -91,11 +92,22 @@ elif menu == 'Login':
     if st.sidebar.button('Login'):
         if password == adpass:
             searchuser = readcsv[readcsv['Username'] == username]
-            ##st.table(searchuser)
+            #st.table(searchuser)
+        
             if not searchuser.empty:
                 getfn = searchuser['First Name'].iloc[0]
                 getln = searchuser['Last Name'].iloc[0]
-                st.title(f"{getfn} {getln}")
+                st.title(f"{getfn} {getln}") 
+                st.success('Login Successful')
+                st.balloons()
+                st.subheader('Profile Picture')
+                profile_pic = f'{username}.png'
+                try:
+                    with open(profile_pic, 'rb') as f:
+                        st.image(f, width=300)
+                except FileNotFoundError:
+                    st.warning("Profile picture not found.")
+
                 col1, col2,col3 = st.columns(3)
                 with col1:
                     st.subheader('Personal Information')
