@@ -5,7 +5,7 @@
 # the other page plots the charts of all users who answered and shows their scores
 # the app should be able to save the scores in a file and read from it
 # import the necessary libraries 
-# add points to each individual answer
+# add points to each individual answer 1
 import streamlit as st
 import pandas as pd
 import plotly.express as px
