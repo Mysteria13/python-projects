@@ -37,7 +37,7 @@ if Menu == "Results":
         st.subheader('Pie Chart of Scores')
         if not readcsv.empty:
             piechart = px.pie(readcsv, names='Name', values='Scores',title='Scores of Participants', labels={'Name': 'Participant Name', 'Score': 'Score'})
-            st.plotly_chart(piechart):        
+            st.plotly_chart(piechart)
 score = 0
 if Menu == 'Quiz':
     st.title('Quiz')
