@@ -40,7 +40,7 @@ if Menu == "Results":
             st.plotly_chart(piechart)
 score = 0
 if Menu == 'Quiz':
-    st.title('Quiz')
+    st.title('General Quiz')
     name = st.text_input('Enter Your Name')
     if name == '':
         st.error('Please enter your name to start the quiz.')
