@@ -27,7 +27,7 @@ if Menu == "Results":
     average_score = readcsv['Scores'].mean()
     st.write(f'The average score of all participants is: {average_score:.2f}')
    
-    chart = st.radio ("Plot a chart",['Bar','Pie'] horizontal = True)
+    chart = st.radio("Plot a chart",['Bar','Pie'], horizontal = True)
     if chart == 'Bar':
         st.subheader('Bar Chart of Scores')
         if not readcsv.empty:
