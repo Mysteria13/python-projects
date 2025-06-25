@@ -20,7 +20,7 @@ if Menu == "Results":
    total_score = 50
    st.subheader('Total score is 50')
    st.subheader('Scores of all participants')
-   st.write('Here are the scores of all participants in the quiz:')
+   st.write('Here are the scores of all participants in the Personal quiz:')
    st.table(readcsv)
    st.subheader('Average Score')
    average_score = readcsv['Scores'].mean()
