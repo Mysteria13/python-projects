@@ -48,7 +48,7 @@ if Menu == "Results":
     st.table(seecsv)
     st.subheader('Average Score')
     average_scores = seecsv['Score'].mean()
-    st.write(f'The average score of all participants is: {average_score:.2f}')
+    st.write(f'The average score of all participants is: {average_scores:.2f}')
     st.subheader('Bar Chart of Scores')
     charts = st.radio("Plot a chart",['Bars','Pies'], horizontal = True)
     if charts == 'Bars':
