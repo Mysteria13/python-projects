@@ -1,0 +1,20 @@
+{
+ 
+    "editor.suggestSelection": "first",
+    "editor.tabCompletion": "off",
+    "editor.snippetSuggestions": "none",
+    "editor.suggest.showIcons": false,
+    "editor.suggest.showStatusBar": false,
+    "editor.suggest.showMethods": false,
+    "editor.suggest.showFunctions": false,
+    "editor.suggest.showVariables": false,
+    "editor.suggest.showClasses": false,
+    "editor.suggest.showStructs": false,
+    "editor.suggest.showInterfaces": false,
+    "editor.suggest.showModules": false,
+    "editor.suggest.showProperties": false,
+    "editor.suggest.showEvents": false,
+    "editor.suggest.showOperators": false,
+    "editor.suggest.showUnits": false
+    }
+    
