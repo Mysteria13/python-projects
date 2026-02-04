@@ -6,9 +6,9 @@ with col1:
   firstname = st.text_input ("First name")
 with col2:
   lastname =st.text_input ("Last name")
-
-col3,col4,col5=st.columns(3)
 st.subheader ('Date')
+col3,col4,col5=st.columns(3)
+
 with col3:
  day=st.selectbox ('Day',['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31'],0)
 with col4:
