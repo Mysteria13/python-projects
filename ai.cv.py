@@ -75,7 +75,7 @@ if generate:
         st.subheader('Education')
         st.info(education_response)
 
-def generate_pdf():
+'''def generate_pdf():
           pdf = FPDF()
           pdf.add_page()
           colx = 10
@@ -94,7 +94,7 @@ def generate_pdf():
           # ps2
           pdf.set_font(family='Courier',size=15,style='B')
           pdf.set_xy(colx+0,coly+15)
-          pdf.cell(colw,colh,txt=f'{summary_response}',ln=True,align='L')
+          pdf.cell(colw,colh,txt=summary_response,ln=True,align='L')
 #skills
           pdf.set_font(family='Courier',size=25,style='B')
           pdf.set_xy(colx+0,coly+20)
@@ -128,9 +128,9 @@ if st.sidebar.button('Download'):
     view1,  = st.columns(1) 
     #view2#
     with view1:
-               st.sidebar.download_button(label=':rainbow[Download PDF]', data=pdf_data, file_name=f'{name}_results.pdf', mime='application/pdf')
+               st.sidebar.download_button(label=':rainbow[Download PDF]', data=pdf_data, file_name=f'{name}_results.pdf', mime='application/pdf')'''
 
-    ''' with view2:
+''' with view2:
          if st.sidebar.button(":blue[View Invoice]"):
                #Write the PDF using base64
                pdf_base64 = base64.b64encode(pdf_data).decode('utf-8')
