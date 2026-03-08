@@ -3,7 +3,7 @@ import requests
 from fpdf import FPDF
 import base64
 #-------------------CONFIGURATIONS------------------------
-apikey = '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'
+apikey = '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'
 apilink = "https://openrouter.ai/api/v1/chat/completions" #THIS CONNECTS TO OPENROUTER
 headers = {'Authorization': f'Bearer {apikey}', 'Content-Type': 'application/json'}
 #----------------------------------------
