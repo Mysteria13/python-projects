@@ -10,84 +10,64 @@ Fruits Category (4 items each)
 Drinks Category (4 items each)
 """
 import streamlit as st 
-st.set_page_config(layout='wide')
+#st.set_page_config(layout='wide')
 
 st.title('Food order App made by Lisa')
 st.image("https://images.immediate.co.uk/production/volatile/sites/30/2022/11/Meze-style-sharing-board-2f05456.jpg")
-bill = 0
-st.subheader("Food Category")
-food1,food2,food3,food4= st.columns(4)
+
+
+food1,food2,food3= st.columns(3)
 
 with food1:
-   if st.checkbox("Fish & Chips: $15"):
-    bill += 15
-   st.write("Ok Done")
-
+   st.image('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTEqToTwxmIDdgCDvdd770cIYfqhpcdBGBog&s')
+   
 with food2:
-    if st.checkbox("Fried Rice & Chicken: $20"):
-      bill += 20 
-      st.write("Ok Done")
-
+    fcp = 15
+    st.subheader('Fish and Chips: $15')
 with food3:
-    if st.checkbox("Jollof Rice & Turkey: $20"):
-      bill += 20
-      st.write("Ok Done") 
+    fish = st.number_input('Enter amount of items',0)    
+    food = fcp * fish 
 
-with food4:
-  if st.checkbox(" Pepper Soup & Catfish : $15"):
-     bill +=15
-     st.write("Ok Done")
-
-
-
-st.subheader("Fruit Category")
-fruit1,fruit2,fruit3,fruit4= st.columns(4)
+st.divider()
+fruit1,fruit2,fruit3= st.columns(3)
 
 with fruit1:
-    if st.checkbox("Strawberry & Grapes: $5"):
-      bill += 5
-    st.write("Ok Done")
-
+  st.image('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCjHab768bbU_DZcFFVZvgCd2rF78gATyX0w&s')
 with fruit2:
-       if st.checkbox("Pinapple & Apple: $6"):
-        bill += 6
-        st.write("Ok Done")
-
+    sgp = 5
+    st.subheader('Strawberry and Grapes: $5')
 with fruit3:
-      if st.checkbox("Rasberry & Papaya: $7"):
-         bill += 7
-         st.write("Ok Done") 
-
-with fruit4:
-      if st.checkbox(" Mango & Cherry : $8"):
-            bill += 8
-      st.write("Ok Done")
-
-
-st.subheader("Drink Category")
-drink1,drink2,drink3, drink4= st.columns(4)
+    strawgrape = st.number_input ("Enter Amount of item",0)
+    fruit = sgp * strawgrape
+   
+st.divider()
+drink1,drink2,drink3= st.columns(3)
 
 with drink1:
-    if st.checkbox("Whiskey: $20"):
-      bill += 20
-    st.write("Ok Done")
+    st.image('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSaViYPzmovnFyqFbfdPrSmbifi-1ZCncvRCQ&s')
 
 with drink2:
-       if st.checkbox("Soda: $16"):
-          bill += 16
-       st.write("Ok Done")
-
+    fsp = 15
+    st.subheader('Fruit Smoothie: $15')
 with drink3:
-      if st.checkbox("Wine: $17"):
-         bill += 17
-         st.write("Ok Done") 
+    smoothie = st.number_input("Enter amount of item",0)
+    drink = fsp * smoothie
+total = drink + fruit + food
 
-with drink4:
-      if st.checkbox(" Fruit Smoothie : $15"):
-         bill += 15
-         st.write("Ok Done")
-            
-
-if st.button("Check Bill"):
-    st.write("Your Bill is", bill," dollars")
-                                         
+if st.button ('Check Balance'): 
+    st.header('You have:')
+    if food > 0:
+       st.write(f'{fish} plate of Fish and Chips: ${food}')
+    else:
+        st.write('You didnt buy any food')
+    if fruit > 0:
+       st.write(f'{strawgrape} bowl of Strawberry and Grapes: ${fruit}')
+    else:
+        st.write('You didnt buy any fruits')
+    if drink > 0:
+       st.write(f'{smoothie} cup of Fruit Smoothie: ${drink}')
+    else:
+        st.write('You didnt buy any drinks')
+    if total > 0:
+       st.subheader(f'Your total is ${total}')
+    
