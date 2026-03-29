@@ -3,7 +3,7 @@ import requests
 from fpdf import FPDF
 import base64
 #-------------------CONFIGURATIONS------------------------
-apikey = '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'
+apikey = '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'
 apilink = "https://openrouter.ai/api/v1/chat/completions" #THIS CONNECTS TO OPENROUTER
 headers = {'Authorization': f'Bearer {apikey}', 'Content-Type': 'application/json'}
 #----------------------------------------
@@ -74,4 +74,74 @@ if generate:
         education_response = ask_ai(edu_prompt)
         st.subheader('Education')
         st.info(education_response)
+
+
+        def generate_pdf():
+                pdf = FPDF()
+                pdf.add_page()
+                colx = 10
+                colx = 10
+                coly = 10
+                colw = 90
+                colh = 10
+                # Results
+                pdf.set_font(family='Courier',size=25,style='B')
+                pdf.set_xy(colx+0,coly+5)
+                pdf.cell(colw,colh,txt=f'{name}',ln=True,align='L')
+                #ps
+                pdf.set_font(family='Courier',size=25,style='B')
+                pdf.set_xy(colx+0,coly+10)
+                pdf.cell(colw,colh,txt='Professional Summary',ln=True,align='L')
+                # ps2
+                pdf.set_font(family='Courier',size=15,style='B')
+                pdf.set_xy(colx+0,coly+15)
+                pdf.cell(colw,colh,txt=f'{summary_response}',ln=True,align='L')
+        #skills
+                pdf.set_font(family='Courier',size=25,style='B')
+                pdf.set_xy(colx+0,coly+20)
+                pdf.cell(colw,colh,txt=' Key Skills',ln=True,align='L')
+                #s2
+                pdf.set_font(family='Courier',size=15,style='B')
+                pdf.set_xy(colx+0,coly+25)
+                pdf.cell(colw,colh,txt=f'{skills_response}',ln=True,align='L')
+        #work          
+                pdf.set_font(family='Courier',size=25,style='B')
+                pdf.set_xy(colx+0,coly+30)
+                pdf.cell(colw,colh,txt='Work Experience',ln=True,align='L')
+                #W2
+                pdf.set_font(family='Courier',size=15,style='B')
+                pdf.set_xy(colx+0,coly+35)
+                pdf.cell(colw,colh,txt=f'{xp_response}',ln=True,align='L')
+        #education
+                pdf.set_font(family='Courier',size=25,style='B')
+                pdf.set_xy(colx+0,coly+40)
+                pdf.cell(colw,colh,txt='Education',ln=True,align='L')
+
+                pdf.set_font(family='Courier',size=15,style='B')
+                pdf.set_xy(colx+0,coly+45)
+                pdf.cell(colw,colh,txt=f'{education_response}',ln=True,align='L')
+                pdf_file = 'ai.pdf'
+                pdf.output(pdf_file)
+                return pdf_file
+
+        if st.button('Download'):
+            pdf_funct = generate_pdf()
+            with open(pdf_funct,'rb') as binary:
+                    pdf_data = binary.read()
+            
+            view1, view2 = st.columns(2) 
+            
+            with view1:
+                    st.sidebar.download_button(label=':rainbow[Download PDF]', data=pdf_data, file_name=f'{name}_results.pdf', mime='application/pdf')
+
+            with view2:
+                if st.button(":blue[View Invoice]"):
+                    #Write the PDF using base64
+                    pdf_base64 = base64.b64encode(pdf_data).decode('utf-8')
+
+                    #Generate the HTML to embed the PDF
+                    pdf_embed = f'<embed src="data:application/pdf;base64,{pdf_base64}" type="application/pdf" width="100%" height="600px" />'
+
+                    #Display the embedded pdf (Markdown helps us use HTML in streamlit)
+                    st.markdown(pdf_embed,unsafe_allow_html=True)
 

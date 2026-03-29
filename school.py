@@ -26,10 +26,10 @@ import pandas as pd
 # Load or initialize the CSV file
 try:
     readcsv = pd.read_csv('school.csv')
-    st.write(readcsv)
+    #st.write(readcsv)
 except FileNotFoundError:
     readcsv = pd.DataFrame()
-    st.write(readcsv)
+    #st.write(readcsv)
 
 # Sidebar menu
 menu = st.sidebar.selectbox('Menu', ['Register', 'Login'])
@@ -64,7 +64,7 @@ if menu == 'Register':
 
     # Submit button
     if st.button('Submit'):
-        if not all([userid, first_name, last_name, username, password]):
+        if not all([userid, first_name, last_name, username, password,student_email,address,parent_name,parent_contact,parent_email]):
             st.warning('Please fill in all required fields.')
         else:
             student_data = {

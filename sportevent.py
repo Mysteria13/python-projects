@@ -22,13 +22,13 @@ import streamlit as st
 import pandas as pd
 try:
     readcsv = pd.read_csv ('mark.csv')
-    st.write(readcsv)
+    #st.write(readcsv)
 except:
     readcsv = pd.DataFrame()
-    st.write(readcsv)
+    #st.write(readcsv)
 menu = st.sidebar.selectbox('Menu', [ 'Enter Info', 'View Database'])
 if menu == "View Database":
-    #st.table(readcsv)
+    st.table(readcsv)
     sports = ["Sprint","Long Jump","Shot Put","High Jump"]
     sportstable = readcsv[sports].mean().reset_index()
 if menu == 'Enter Info':
