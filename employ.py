@@ -48,7 +48,7 @@ if menu == 'Staff File':
       findem_button = st.button('Find Staff')
 
    if findem_button:
-      findemressult = readcsv[readcsv['Staff ID'] == findem]
+      findemressult = readcsv[readcsv['Staff ID'].str.lower() == findem.lower()]
       #st.write(findemressult)
       if findemressult.empty:
          st.error('Staff ID Not Found, Kindly Double Check ID')
