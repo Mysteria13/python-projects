@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
 
-apikey = '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'
+apikey = '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'
 apilink = "https://openrouter.ai/api/v1/chat/completions" #THIS CONNECTS TO OPENROUTER
 headers = {'Authorization': f'Bearer {apikey}', 'Content-Type': 'application/json'}
 
@@ -18,7 +18,7 @@ def ask_ai(content):
     else:
         return "Error getting A.I Response"
 st.title('Python Ai Helper')
-topic = st.sidebar.selectbox('Pick a topic',['Python Operators','Python Functions','Python Dictionary','Python List','Python Variables','Python Data Types'])
+topic = st.sidebar.selectbox('Pick a topic',['Python Operators','Python Functions','Python Dictionary','Python List','Python Variables','Python Data Types','Python If Else'])
 
 topic_prompt = f''' Give a Brief but easy to understand Detailed explanation of 4-5 lines of this topic:{topic}  with 4-5 examples and a multi-choice question for beginners
 '''
