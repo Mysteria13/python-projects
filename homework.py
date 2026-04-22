@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
 
-apikey = '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'
+apikey = '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'
 apilink = "https://openrouter.ai/api/v1/chat/completions" #THIS CONNECTS TO OPENROUTER
 headers = {'Authorization': f'Bearer {apikey}', 'Content-Type': 'application/json'}
 
@@ -18,13 +18,29 @@ def ask_ai(content):
     else:
         return "Error getting A.I Response"
 st.title('Python Ai Helper')
+
 topic = st.sidebar.selectbox('Pick a topic',['Python Operators','Python Functions','Python Dictionary','Python List','Python Variables','Python Data Types','Python If Else'])
 
-topic_prompt = f''' Give a Brief but easy to understand Detailed explanation of 4-5 lines of this topic:{topic}  with 4-5 examples and a multi-choice question for beginners
+topic_prompt = f''' Give a Brief but easy to understand Detailed explanation of 4-5 lines of this topic:{topic}  with 4-5 examples 
 '''
-gen = st.sidebar.button('Generating Topic')
+question_prompt = f''' Give A Multi-Chioce Question without answer for this topic:{topic}
+'''
+
+gen = st.sidebar.pills('',['Generating Topic'])
 if gen:
-    with st.spinner('Generating Answer'):
+    with st.spinner('Generating Topic'):
         homework_response = ask_ai(topic_prompt)
-        st.subheader('The Explanation')
+        multi_response = ask_ai(question_prompt)
+        st.subheader(f'{topic} Summary')
         st.info(homework_response)
+        ans_prompt = f''' Give answer for this Question:{question_prompt}
+        '''
+        ans_response = ask_ai(multi_response)
+        tab1,tab2 = st.tabs(['Question','Answer'])
+        with tab1:
+           st.subheader('Multi-Choice Question')
+           st.info(multi_response)
+        with tab2:
+           st.subheader('Answer')
+           st.info(ans_response)
+st.sidebar.write('Made By Lisa')
