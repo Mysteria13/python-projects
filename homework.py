@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
 
-apikey = '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'
+apikey = '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'
 apilink = "https://openrouter.ai/api/v1/chat/completions" #THIS CONNECTS TO OPENROUTER
 headers = {'Authorization': f'Bearer {apikey}', 'Content-Type': 'application/json'}
 
